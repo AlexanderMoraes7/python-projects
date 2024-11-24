@@ -1,0 +1,38 @@
+"""Class to manipulate the json file.
+    This class there are functions to load the json record, manipulate and save scheduling. 
+"""
+
+import json
+
+class Schedule_module:
+    def __init__(self):
+        self.name_file = "schedule.json"
+        self.load()
+
+    def load(self):
+        try:
+            with open(self.name_file, encoding="utf-8") as opened:
+                json_file = json.load(opened)
+                if json_file:
+                    print("Your appointments saved are:")
+                    for date, appointments in json_file.items():
+                        print(f"{date} |=> {appointments}")
+                    print()
+                else:
+                    print("There are nothing appointments saves yet.\n")
+        except FileNotFoundError:
+            return None
+        else:
+            return json_file
+
+    def save(self, date = str, appointments = str):
+        file = self.load()
+
+        if file:
+            file[date] = appointments
+            with open(self.name_file, "w", encoding="utf-8") as opened:
+                json.dump(file, opened, indent=4)
+        else:
+            file = {date: appointments}
+            with open(self.name_file, "w", encoding="utf-8") as opened:
+                json.dump(file, opened, indent=4)
