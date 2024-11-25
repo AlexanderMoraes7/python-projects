@@ -1,12 +1,18 @@
 import scheduling_module
+import os
+
 
 class Schedule:
     """Principal Class"""
+
     def __init__(self):
         self.oSchedule = scheduling_module.Schedule_module()
         print("Schedule your appointments")
         while True:
-            option = input("Enter:\n0: to go out\n1: to save a new appointment\n2: to load all appointments\n")
+            # if your system is windows will run 'cls' else will run 'clear'
+            os.system('cls' if os.name == 'nt' else 'clear')
+            option = input(
+                "Enter:\n0: to go out\n1: to save a new appointment\n2: to load all appointments\n")
             if option == "0":
                 break
             elif option == "1":
@@ -25,5 +31,6 @@ class Schedule:
         appoint = input("Enter your appointment: ")
         self.oSchedule.save(date, appoint)
         print(f"Appointment for {date} was saved successfully\n")
+
 
 s = Schedule()
