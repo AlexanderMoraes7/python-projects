@@ -21,7 +21,7 @@ class Schedule_module:
                     json_file = json.load(opened)
                     print("Your appointments saved are:")
                     for date, appointments in json_file.items():
-                        print(f"{self.count} : {date} |=> {appointments}")
+                        print(f"{date} |=> {appointments}")
                     print()
                 else:
                     return print("No appointments saved yet.\n")
