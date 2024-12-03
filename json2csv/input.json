@@ -1,0 +1,16 @@
+[
+    {
+      "Name": "Jose",
+      "Age": 31,
+      "Birthyear": "1993",
+      "Cellphone": "+1-212-456-7890",
+      "Adress": "34°, New York Street"
+    },
+    {
+      "Name": "Peter",
+      "Age": 38,
+      "Birthyear": "1986",
+      "Cellphone": "+1-212-852-7531",
+      "Adress": "758, Peter Street"
+    }
+  ]
