@@ -1,6 +1,6 @@
 from datetime import date
 
-from fastapi import FastAPI  # type: ignore
+from fastapi import FastAPI
 
 app = FastAPI()
 
@@ -10,4 +10,4 @@ def read_root():
     day = str(date.today()).split('-', 2)[2]
     month = str(date.today()).split('-', 2)[1]
     year = str(date.today()).split('-', 2)[0]
-    return {'Day': day, 'Month': month, 'Year': year}
+    return {'Month': month, 'Day': day, 'Year': year}

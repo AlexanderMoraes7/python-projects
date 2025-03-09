@@ -1,3 +1,4 @@
+from datetime import date
 from http import HTTPStatus
 
 from fastapi.testclient import TestClient
@@ -10,9 +11,12 @@ def returning():
 
     response = client.get('/')  # Act
 
+    day = str(date.today()).split('-', 2)[2]
+    month = str(date.today()).split('-', 2)[1]
+    year = str(date.today()).split('-', 2)[0]
     assert response.status_code == HTTPStatus.OK  # Assert
     assert response.json() == {
-        'Day': '09',
-        'Month': '03',
-        'Year': '2025',
+        'Month': month,
+        'Day': day,
+        'Year': year,
     }  # Assert
