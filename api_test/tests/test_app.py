@@ -20,3 +20,22 @@ def returning():
         'Day': day,
         'Year': year,
     }  # Assert
+
+
+def test_create_user():
+    client = TestClient(app)
+    response = client.post(
+        '/users/',
+        json={
+            'usersname': 'test_user',
+            'password': '1234567',
+            'email': 'user_tester@gmail.com',
+        },
+    )
+
+    assert response.status_code == HTTPStatus.CREATED
+    assert response.json() == {
+        'usersname': 'test_user',
+        'email': 'user_tester@gmail.com',
+        'id': 1,
+    }
