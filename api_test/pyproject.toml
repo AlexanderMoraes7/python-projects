@@ -13,6 +13,9 @@ packages = [{include = "api_test"}]
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"
 fastapi = {extras = ["standard"], version = "^0.115.11"}
+mysql-connector-python = "^9.2.0"
+sqlalchemy = "^2.0.40"
+mysqlclient = "^2.2.7"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.10"
