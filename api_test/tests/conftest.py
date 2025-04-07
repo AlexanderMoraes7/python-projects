@@ -21,4 +21,4 @@ def session():
     with Session(engine) as session:
         yield session
 
-    table_registry.metadata.drop_all(engine)
+    # table_registry.metadata.drop_all(engine)

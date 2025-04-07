@@ -8,19 +8,18 @@ class Message(BaseModel):
 
 
 class UserSchema(BaseModel):
-    usersname: str
+    username: str
     email: EmailStr
     password: str
 
 
 class UserDB(UserSchema):
     id: int
-    pass
 
 
 class UserPublic(BaseModel):
     id: int
-    usersname: str
+    username: str
     email: EmailStr
 
 

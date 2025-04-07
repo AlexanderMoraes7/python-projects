@@ -1,5 +1,9 @@
 from datetime import date
 from http import HTTPStatus
+from sqlalchemy.orm import Session
+from api_test.settings import Settings
+from sqlalchemy import create_engine, select
+from api_test.models import User
 
 
 def test_read_root(client):  # Arrange
@@ -17,20 +21,29 @@ def test_read_root(client):  # Arrange
 
 
 def test_create_user(client):
+    engine = create_engine(Settings().DATABASE_URL)
+    
+    with Session(engine) as session:
+        db_user = session.scalar(
+            select(User).order_by(
+                User.id.desc()
+            )
+        )
+    
     response = client.post(
         '/users/',
         json={
-            'usersname': 'test_user',
-            'password': '1234567',
-            'email': 'user_tester@gmail.com',
+            'username': db_user.username,
+            'email': db_user.email,
+            'password': db_user.password,
         },
     )
 
     assert response.status_code == HTTPStatus.CREATED
     assert response.json() == {
-        'usersname': 'test_user',
-        'email': 'user_tester@gmail.com',
-        'id': 1,
+        'username': db_user.username,
+        'email': db_user.email,
+        'id': db_user,
     }
 
 
@@ -40,7 +53,7 @@ def test_read_users(client):
     assert response.json() == {
         'users': [
             {
-                'usersname': 'test_user',
+                'username': 'test_user',
                 'email': 'user_tester@gmail.com',
                 'id': 1,
             }
@@ -53,13 +66,19 @@ def test_update_user(client):
         'users/1',
         json={
             'password': '123',
-            'usersname': 'test_username2',
+            'username': 'test_username2',
             'email': 'user_tester@gmail.com',
             'id': 1,
         },
     )
     assert response.json() == {
-        'usersname': 'test_username2',
+        'username': 'test_username2',
         'email': 'user_tester@gmail.com',
         'id': 1,
     }
+
+
+def test_delete_user(client):
+    response = client.delete('/users/1')
+
+    assert response.json() == {'message': 'User deleted!'}
